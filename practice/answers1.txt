@@ -1,0 +1,202 @@
+Round 1 Notes
+
+1. pwd
+
+pwd means print working directory.
+It shows the current directory.
+
+
+2. mkdir
+
+mkdir means make directory.
+It creates a new folder.
+
+Example:
+mkdir practice
+
+
+3. cd
+
+cd means change directory.
+It enters another folder.
+
+Example:
+cd practice
+
+
+4. touch
+
+touch creates an empty file.
+
+Example:
+touch test.txt
+
+
+5. echo with >
+
+> means overwrite.
+
+Example:
+echo "Hello CST206" > test.txt
+
+This writes Hello CST206 into test.txt.
+If the file already has content, it will be overwritten.
+
+
+6. echo with >>
+
+>> means append.
+
+Example:
+echo "Linux is useful" >> test.txt
+
+This adds Linux is useful to the end of test.txt.
+
+
+7. cat
+
+cat shows the content of a file.
+
+Example:
+cat test.txt
+
+
+8. cp
+
+cp means copy.
+
+Example:
+cp test.txt backup.txt
+
+This copies test.txt to backup.txt.
+
+
+9. mv
+
+mv can move or rename files.
+
+Example:
+mv backup.txt old.txt
+
+This renames backup.txt to old.txt.
+
+
+10. rm
+
+rm removes a normal file.
+
+Example:
+rm old.txt
+
+
+11. Bash variable assignment
+
+Correct:
+name="Tom"
+
+Wrong:
+name = "Tom"
+
+Reason:
+In Bash, there must be no spaces around =.
+
+
+12. Get variable value
+
+Correct:
+$name
+
+Correct:
+${name}
+
+Wrong:
+$(name)
+
+Reason:
+$(command) means command substitution.
+It runs the command inside the brackets.
+
+
+13. read -p
+
+read -p is used to get user input.
+
+Example:
+read -p "Enter your name: " name
+
+
+14. Number comparison
+
+-gt means greater than.
+-ge means greater than or equal.
+-lt means less than.
+-le means less than or equal.
+-eq means equal.
+-ne means not equal.
+
+
+15. Greater than 0
+
+Correct:
+if [ "$num" -gt 0 ]; then
+
+Wrong for this question:
+if [ "$num" -ge 0 ]; then
+
+Reason:
+-ge 0 means greater than or equal to 0.
+So 0 will also be counted as Positive.
+
+
+16. grep
+
+grep is used to search text in a file.
+
+Example:
+grep "CST" test.txt
+
+
+17. grep -E
+
+-E means extended regex.
+
+Example:
+grep -E "[0-9]" test.txt
+
+
+18. grep -o
+
+-o means only print the matched part.
+
+Without -o:
+grep -E "[0-9]+" test.txt
+
+This prints the whole line.
+
+With -o:
+grep -Eo "[0-9]+" test.txt
+
+This only prints the matched numbers.
+
+
+19. Common regex
+
+[0-9] means one digit.
+
+[0-9]+ means one or more digits.
+
+\. means a real dot.
+
+| means OR.
+
+^ means the beginning of a line.
+
+$ means the end of a line.
+
+
+20. Regex example
+
+^[0-9]+$
+
+Meaning:
+The whole line must contain only numbers.

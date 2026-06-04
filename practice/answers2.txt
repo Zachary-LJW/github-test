@@ -1,0 +1,320 @@
+Q1
+
+#!/bin/bash
+
+read -p "Enter a number: " num
+
+if [ "$num" -ge 60 ]; then
+    echo "Pass"
+else
+    echo "Fail"
+fi
+
+Q2
+
+#!/bin/bash
+
+read -p "Enter a number: " num
+
+if [ "$num" -gt 0 ]; then
+    echo "Positive"
+elif [ "$num" -lt 0 ]; then
+    echo "Negative"
+else
+    echo "Zero"
+fi
+
+Q3
+
+Error:
+There are no spaces after [ and before ].
+
+Correct code:
+
+#!/bin/bash
+
+read -p "Enter number: " num
+
+if [ "$num" -gt 10 ]; then
+    echo "Greater than 10"
+fi
+
+Q4
+
+#!/bin/bash
+
+read -p "Enter your choice: " choice
+
+case "$choice" in
+    1)
+        echo "Start"
+        ;;
+    2)
+        echo "Stop"
+        ;;
+    *)
+        echo "Invalid choice"
+        ;;
+esac
+
+Q5
+
+Error:
+Each case branch is missing ;;.
+
+Correct code:
+
+#!/bin/bash
+
+read -p "Enter choice: " choice
+
+case "$choice" in
+    1)
+        echo "Start"
+        ;;
+    2)
+        echo "Stop"
+        ;;
+    *)
+        echo "Invalid"
+        ;;
+esac
+
+Q6
+
+#!/bin/bash
+
+for i in {1..5}
+do
+    echo "$i"
+done
+
+Q7
+
+#!/bin/bash
+
+i=1
+
+while [ "$i" -le 5 ]
+do
+    echo "$i"
+    i=$((i+1))
+done
+
+Q8
+
+#!/bin/bash
+
+read -p "Enter a number: " n
+
+for ((i=1; i<=n; i++))
+do
+    echo "$i"
+done
+
+Q9
+
+#!/bin/bash
+
+read -p "Enter a number: " n
+
+sum=0
+
+for ((i=1; i<=n; i++))
+do
+    sum=$((sum+i))
+done
+
+echo "Sum = $sum"
+
+Q10
+
+#!/bin/bash
+
+read -p "Enter a number: " n
+
+if [ $((n % 2)) -eq 0 ]; then
+    echo "Even"
+else
+    echo "Odd"
+fi
+
+Q11
+
+#!/bin/bash
+
+while true
+do
+    echo "1. Say Hello"
+    echo "2. Show Date"
+    echo "3. Exit"
+
+    read -p "Enter your choice: " choice
+
+    case "$choice" in
+        1)
+            echo "Hello"
+            ;;
+        2)
+            date
+            ;;
+        3)
+            echo "Bye"
+            exit
+            ;;
+        *)
+            echo "Invalid"
+            ;;
+    esac
+done
+
+Q12
+
+Output:
+Number: 1
+Number: 2
+Number: 3
+
+Reason:
+The for loop assigns values 1, 2, and 3 to variable i.
+Each time, it prints "Number: " followed by the value of i.
+
+Round 2 Notes
+
+1. Bash if structure
+
+if [ condition ]; then
+    command
+elif [ condition ]; then
+    command
+else
+    command
+fi
+
+
+2. Spaces are very important in Bash
+
+Wrong:
+if [$num -gt 10]; then
+
+Correct:
+if [ "$num" -gt 10 ]; then
+
+Reason:
+[ ] is a test command, so spaces are required.
+
+
+3. elif also needs a space
+
+Wrong:
+elif[ "$num" -lt 0 ]; then
+
+Correct:
+elif [ "$num" -lt 0 ]; then
+
+
+4. Number comparison
+
+-gt means greater than
+-lt means less than
+-ge means greater than or equal
+-le means less than or equal
+-eq means equal
+-ne means not equal
+
+
+5. Variable names must be consistent
+
+Wrong:
+read -p "Enter choice: " chocie
+if [ "$num" = "1" ]; then
+
+Correct:
+read -p "Enter choice: " choice
+if [ "$choice" = "1" ]; then
+
+
+6. case structure
+
+case "$choice" in
+    1)
+        echo "Start"
+        ;;
+    2)
+        echo "Stop"
+        ;;
+    *)
+        echo "Invalid"
+        ;;
+esac
+
+Notes:
+;; means the end of one branch.
+*) means default case.
+esac means the end of case.
+
+
+7. for loop
+
+for i in {1..5}
+do
+    echo "$i"
+done
+
+This prints numbers from 1 to 5.
+
+
+8. C-style for loop
+
+for ((i=1; i<=n; i++))
+do
+    echo "$i"
+done
+
+i<=n means output from 1 to n.
+i<n means output from 1 to n-1.
+
+
+9. while loop
+
+i=1
+
+while [ "$i" -le 5 ]
+do
+    echo "$i"
+    i=$((i+1))
+done
+
+
+10. Even or odd
+
+if [ $((n % 2)) -eq 0 ]; then
+    echo "Even"
+else
+    echo "Odd"
+fi
+
+% means remainder.
+If n % 2 is 0, the number is even.
+Otherwise, it is odd.
+
+
+11. Sum from 1 to n
+
+sum=0
+
+for ((i=1; i<=n; i++))
+do
+    sum=$((sum+i))
+done
+
+echo "Sum = $sum"
+
+
+12. Common exam mistake
+
+Always follow the required structure.
+
+If the question says use case, use case.
+If the question says use while, use while.
+If the question says exact output is "Bye", do not write "Exit program".

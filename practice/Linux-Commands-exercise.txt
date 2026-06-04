@@ -1,0 +1,478 @@
+Round 5 Practice：Linux Commands 强化
+Part A：Basic commands
+Q1
+pwd
+Q2
+ls
+Q3
+ls -l
+Q4
+mkdir exam
+Q5
+cd exam
+Q6
+cd ..
+Q7
+cd ~
+
+Part B：Files
+Q8
+touch notes.txt
+Q9
+cat notes.txt
+Q10
+cp notes.txt backup.txt
+Q11
+mv backup.txt old.txt
+Q12
+rm old.txt
+
+Part C：Directories
+Q13
+mkdir testfolder
+Q14
+rmdir testfolder
+Q15
+rm -r project
+
+Part D：Redirection
+Q16
+echo "Hello Linux" > notes.txt
+Q17
+echo "CST206 is useful" >> notes.txt
+Q18
+wc -l notes.txt
+Q19
+wc -l < notes.txt
+
+Part E：Pipe / grep
+Q20
+grep "CST206" students.txt
+Q21
+grep -i "cst206" students.txt
+Q22
+grep "CST206" students.txt | wc -l
+Q23
+head -2 students.txt
+Q24
+tail -2 students.txt
+
+Part F：Explain commands in English
+Q25
+Answer:
+overwrite Hello in file.txt
+It writes "Hello" into file.txt and overwrites the old content
+Q26
+It appends "Hello" into file.txt
+Q27
+cat  read the content of students.txt
+then the content as input by pipe transport to grep "CST206"
+then just show the line included CST206
+
+cat students.txt displays the content of the files.
+The pipe sends this output to grep "CSt206"
+grep then prints only the lines that contains CST206
+Q28
+将 students.txt作为输入传入wc -l然后wc -l 统计行数，英语不会写
+
+It uses students.txt as input for wc -l
+wc -l counts the number of lines
+because of < ,only the number is printed,not the filename
+
+Round 5 Notes
+
+1. pwd
+
+pwd means print working directory.
+It shows the current directory.
+
+
+2. ls
+
+ls lists files and folders in the current directory.
+
+
+3. ls -l
+
+ls -l lists files and folders in long format.
+
+
+4. mkdir
+
+mkdir creates a directory.
+
+Example:
+mkdir exam
+
+
+5. cd
+
+cd changes directory.
+
+Examples:
+cd exam
+cd ..
+cd ~
+
+cd exam:
+enter the exam directory
+
+cd ..:
+go to the parent directory
+
+cd ~:
+go to the home directory
+
+
+6. touch
+
+touch creates an empty file.
+
+Example:
+touch notes.txt
+
+
+7. cat
+
+cat displays the content of a file.
+
+Example:
+cat notes.txt
+
+
+8. cp
+
+cp copies a file.
+
+Example:
+cp notes.txt backup.txt
+
+
+9. mv
+
+mv moves or renames a file.
+
+Example:
+mv backup.txt old.txt
+
+This renames backup.txt to old.txt.
+
+
+10. rm
+
+rm removes a normal file.
+
+Example:
+rm old.txt
+
+
+11. rmdir
+
+rmdir removes an empty directory.
+
+Example:
+rmdir testfolder
+
+
+12. rm -r
+
+rm -r removes a non-empty directory.
+
+Example:
+rm -r project
+
+
+13. > redirection
+
+> overwrites old content.
+
+Example:
+echo "Hello Linux" > notes.txt
+
+This writes Hello Linux into notes.txt.
+If notes.txt already has content, it will be overwritten.
+
+
+14. >> redirection
+
+>> appends new content.
+
+Example:
+echo "CST206 is useful" >> notes.txt
+
+This adds CST206 is useful to the end of notes.txt.
+It does not overwrite old content.
+
+
+15. wc -l
+
+wc -l counts lines.
+
+Example:
+wc -l notes.txt
+
+This outputs the number of lines and the filename.
+
+
+16. wc -l < file
+
+Example:
+wc -l < notes.txt
+
+This counts the number of lines in notes.txt.
+Because of <, only the number is printed, not the filename.
+
+
+17. pipe |
+
+| sends the output of the left command to the input of the right command.
+
+Example:
+cat students.txt | grep "CST206"
+
+
+18. grep
+
+grep searches for text in a file.
+
+Example:
+grep "CST206" students.txt
+
+This prints lines that contain CST206.
+
+
+19. grep -i
+
+-i means ignore case.
+
+Example:
+grep -i "cst206" students.txt
+
+This can match CST206, cst206, or Cst206.
+
+
+20. grep + wc -l
+
+Example:
+grep "CST206" students.txt | wc -l
+
+This counts how many lines contain CST206.
+
+
+21. head
+
+head shows the first lines of a file.
+
+Example:
+head -2 students.txt
+
+This shows the first 2 lines.
+
+
+22. tail
+
+tail shows the last lines of a file.
+
+Example:
+tail -2 students.txt
+
+This shows the last 2 lines.
+
+
+23. Important mistakes
+
+Wrong:
+wc -l
+
+Correct:
+wc -l notes.txt
+
+Reason:
+wc -l alone waits for keyboard input.
+To count lines in a file, give the filename.
+
+
+24. Difference between > and >>
+
+> means overwrite.
+>> means append.
+
+
+25. Difference between rm, rmdir, and rm -r
+
+rm file.txt:
+removes a normal file
+
+rmdir folder:
+removes an empty directory
+
+rm -r folder:
+removes a non-empty directory
+
+
+Round 6：Linux + Redirection + Pipe 综合强化
+Part A：综合操作题
+Q1
+cd ~
+mkdir exam_practice
+cd exam_practice
+touch students.txt
+echo "Ali CST206 85" > students.txt
+echo "Tome CST205 72" >> students.txt
+echo "Mary CST206 91" >> students.txt
+cat students.txt
+Q2
+cp students.txt backup.txt
+mv backup.txt old_students.txt
+mkdir archive
+mv old_students.txt archive/
+ls archive
+
+Q3
+rm -r archive
+
+Part B：grep + wc + pipe
+Q4
+grep "CST206" students.txt
+Q5
+grep "CST206" students.txt | wc -l
+Q6
+head -n 3 students.txt
+Q7
+tail -n 2 students.txt
+Q8
+grep "9" students.txt
+Q9
+grep -Eo "[0-9]+" students.txt
+Q10
+grep -E "^M" students.txt
+
+Part C：Redirection 陷阱题
+Q11
+echo "Hello" > file.txt 
+It means writes Hello into the file and overwrites the old content
+echo "Linux" > file.txt
+It means writes Linux into the file and overwrites the old content "Hello"
+final : Linux
+Q12
+echo "Hello" > file.txt
+It means write Hello into the file and overwrites the old content
+echo "Linux" >> file.txt 
+It means appends Linux into the file
+final:
+Hello
+Linux
+Q13
+problem:don't have file name
+correct command:
+wc -l students.txt
+Q14
+wc -l students.txt will output the number of lines and the file name
+wc -l  < students.txt just prints the number of lines
+
+Part D：Debug 题
+Q15
+Error:no space between cd and  dot
+Correct command: cd ..
+Reason:cd and .. are  two differnt words if continus complier can't tell it
+
+Error: There is no space between cd and ..
+Correct command:cd ..
+Reason:cd and .. are seprate arguments,so there must be a space
+Q16
+Error:"-r" is more
+Correct commmand:rmdir project
+Reason:just have rm -r,rmdir just itself
+
+Reason:rmdir can only remove an empty directory
+It cannot remove a non-empty directory
+Q17
+Error:rm 
+Correct command:rm -r testfolder
+Reason:
+rm single just can delete blank directory
+need -r to recursively delete the total directory
+
+Reason:
+rm is used to remove normal files
+rm alone cannot remove a directory
+To remove a non-empty directory,use rm -r
+
+Q18
+Error:less -i
+Correct command:
+grep -i "cst206" students.txt
+Reason:just grep only can search cst206
+
+Part E：英文解释题
+Q19
+grep serach the content that contains CST206
+then the content be used as input to wc -l
+wc -l counts the number of the line
+Q20
+cat students.txt display the content of students.txt
+the pipe sends the this output to head -3
+head -3 then just display the first three lines
+Q21
+grep -E0 means only show the match part
+[0-9]+means 
+
+Q22
+rm -r archive 
+means recursively delete the archive directory
+
+Part F：稍微难一点的综合题
+Q23
+grep "ERROR" log.txt
+Q24
+grep "ERROR" log.txt | wc -l
+Q25
+grep "ERROR" log.txt | echo > errors.txt
+Q26
+grep "WARNING" log.txt | echo >> errors.txt
+Q27
+cat errors.txt
+Q28 
+the lines that contains ERROR or WARNING
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,197 @@
+Round 3 Notes
+
+1. grep
+
+grep is used to search text in a file.
+
+Example:
+grep "Linux" data.txt
+
+
+2. grep -i
+
+-i means ignore case.
+
+Example:
+grep -i "linux" data.txt
+
+This can match:
+Linux
+linux
+LINUX
+
+
+3. grep -E
+
+-E means extended regex.
+
+Example:
+grep -E "[0-9]" data.txt
+
+
+4. grep -o
+
+-o means only print the matched part.
+
+Without -o:
+grep -E "[0-9]+" data.txt
+
+This prints the whole line.
+
+With -o:
+grep -Eo "[0-9]+" data.txt
+
+This only prints the numbers.
+
+
+5. [0-9]
+
+[0-9] means one digit.
+
+
+6. [0-9]+
+
+[0-9]+ means one or more digits.
+
+
+7. [0-9]{3}
+
+[0-9] matches one digit.
+{3} repeats it exactly 3 times.
+
+Overall:
+[0-9]{3} matches exactly 3 continuous digits.
+
+
+8. ^
+
+^ means the beginning of a line.
+
+Example:
+^[0-9]
+
+Meaning:
+the line starts with a digit.
+
+
+9. $
+
+$ means the end of a line.
+
+Example:
+^[0-9]+$
+
+Meaning:
+the whole line contains only digits.
+
+
+10. .
+
+. means any character in regex.
+
+
+11. \.
+
+\. means a real dot.
+
+Example:
+grep "\." data.txt
+
+
+12. \-
+
+\- means a real dash.
+
+Example:
+grep "\-" data.txt
+
+
+13. |
+
+| means OR.
+
+Example:
+call|banana
+
+Meaning:
+call or banana
+
+
+14. +603 phone number
+
+Correct regex:
+\+603[0-9]{8}
+
+Explanation:
+\+ means a real plus sign.
+603 matches the exact text 603.
+[0-9]{8} matches exactly 8 digits.
+
+Correct command:
+grep -Eo "\+603[0-9]{8}" data.txt
+
+
+15. Important mistake: [603]
+
+Wrong:
+[603]
+
+Meaning:
+matches one character: 6 or 0 or 3
+
+Correct:
+603
+
+Meaning:
+matches the exact text 603
+
+
+16. IP address starting with 192.
+
+Regex:
+192\.[0-9]+\.[0-9]+\.[0-9]+
+
+Explanation:
+192 matches exact text 192.
+\. matches a real dot.
+[0-9]+ matches one or more digits.
+
+Command:
+grep -Eo "192\.[0-9]+\.[0-9]+\.[0-9]+" data.txt
+
+
+17. Main mistakes in Round 3
+
+Q9:
+Wrong:
+\+[603][0-9]{8}
+
+Correct:
+\+603[0-9]{8}
+
+Reason:
+[603] means one character from 6, 0, or 3.
+It does not mean the fixed text 603.
+
+
+Q14:
+Wrong:
+grep -E "[0-9]+" data.txt
+
+Correct:
+grep -Eo "[0-9]+" data.txt
+
+Reason:
+-o is needed to only output the matched numbers.
+
+
+Q15:
+Wrong:
+192.[0-9]+.[0-9]+.[0-9]+
+
+Correct:
+192\.[0-9]+\.[0-9]+\.[0-9]+
+
+Reason:
+. means any character.
+\. means a real dot.

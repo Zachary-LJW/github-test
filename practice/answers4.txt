@@ -1,0 +1,740 @@
+Mini Round 4 Notes
+
+1. Program
+
+A program is a file that contains instructions.
+
+Example:
+hello.c is a program.
+
+
+2. Process
+
+A process is a program that is currently running.
+
+Example:
+When we run ./hello, it becomes a process.
+
+
+3. PID
+
+PID means Process ID.
+
+It is the unique ID of a process.
+
+
+4. PPID
+
+PPID means Parent Process ID.
+
+It is the ID of the parent process.
+
+
+5. fork()
+
+fork() creates a new child process.
+
+After fork(), there are two processes:
+parent process
+child process
+
+
+6. fork() return value
+
+pid < 0:
+fork failed
+
+pid == 0:
+current process is the child process
+
+pid > 0:
+current process is the parent process
+
+
+7. getpid()
+
+getpid() returns the PID of the current process.
+
+
+8. getppid()
+
+getppid() returns the PID of the parent process.
+
+
+9. wait(&status)
+
+wait(&status) makes the parent process wait for a child process to finish.
+
+It also stores the child's exit status in status.
+
+
+10. Common mistakes
+
+Wrong:
+getid()
+
+Correct:
+getpid()
+
+
+Wrong:
+A process is a program that currently running.
+
+Correct:
+A process is a program that is currently running.
+
+
+Wrong:
+creats
+
+Correct:
+creates
+
+Process Extra Notes
+
+1. exit status
+
+exit status means the code returned when a process finishes.
+
+Example:
+_exit(42)
+
+This means the child process exits with status code 42.
+
+
+2. wait(&status)
+
+wait(&status) makes the parent process wait for a child process to finish.
+
+It also stores the child's exit status in the variable status.
+
+
+3. WIFEXITED(status)
+
+WIFEXITED(status) checks whether the child process exited normally.
+
+Simple meaning:
+Did the child exit normally?
+
+
+4. WEXITSTATUS(status)
+
+WEXITSTATUS(status) returns the exit status of the child process.
+
+Simple meaning:
+What exit code did the child return?
+
+
+5. Example
+
+Child:
+_exit(42)
+
+Parent:
+int status;
+wait(&status);
+
+if (WIFEXITED(status)) {
+    printf("Exit status: %d\n", WEXITSTATUS(status));
+}
+
+Output:
+Exit status: 42
+
+
+6. Why are WIFEXITED and WEXITSTATUS uppercase?
+
+They are uppercase because they are macros.
+
+Many C macros are written in uppercase.
+
+Examples:
+SIGINT
+SIGQUIT
+WIFEXITED
+WEXITSTATUS
+
+
+7. macro
+
+A macro is a predefined replacement rule in C.
+
+It is processed before compilation.
+
+Example:
+#define PI 3.14
+
+Then:
+area = PI * r * r;
+
+is treated like:
+area = 3.14 * r * r;
+
+
+8. Header file
+
+To use wait, WIFEXITED, and WEXITSTATUS, include:
+
+#include <sys/wait.h>
+
+
+9. Simple memory
+
+wait(&status)
+= wait for child + get child's exit status
+
+WIFEXITED(status)
+= checks if the child exited normally
+
+WEXITSTATUS(status)
+= gets the child's exit code
+
+Mini Round 4.2 Notes
+
+1. fork() return value
+
+pid < 0:
+fork failed
+
+pid == 0:
+current process is the child process
+
+pid > 0:
+current process is the parent process
+
+
+2. Standard fork structure
+
+pid_t pid = fork();
+
+if (pid < 0) {
+    printf("Fork failed\n");
+}
+else if (pid == 0) {
+    printf("Child process\n");
+}
+else {
+    printf("Parent process\n");
+}
+
+
+3. getpid()
+
+getpid() returns the PID of the current process.
+
+
+4. getppid()
+
+getppid() returns the PID of the parent process.
+
+
+5. Output after fork()
+
+Code:
+
+printf("Before fork\n");
+fork();
+printf("After fork\n");
+
+Output:
+Before fork
+After fork
+After fork
+
+Reason:
+Before fork is printed once because it happens before fork().
+After fork is printed twice because both parent and child continue after fork().
+
+
+6. _exit(42)
+
+_exit(42) makes the child process exit with status 42.
+
+
+7. wait(&status)
+
+wait(&status) makes the parent process wait for a child process to finish.
+
+It also stores the child's exit status in status.
+
+
+8. WIFEXITED(status)
+
+WIFEXITED(status) checks whether the child process exited normally.
+
+
+9. WEXITSTATUS(status)
+
+WEXITSTATUS(status) returns the exit status of the child process.
+
+
+10. Common mistake
+
+Wrong:
+Parent uses exit(42).
+
+Correct:
+Child uses _exit(42).
+Parent uses wait(&status).
+
+
+11. Very important sentence
+
+After fork(), both parent and child continue from the next line after fork().
+
+
+
+
+
+
+Q1
+_exit(42);
+wait(&status);
+
+
+Q2
+
+WIFEXITED(status)
+WEXITSTATUS(status)
+
+Q3
+It makes the child process exit with status 42.
+
+Q4
+wait(&status) makes the parent process wait for a child process to finish
+It also stores the child's exit status in status
+
+Q5
+WIFEXITED:It checks whhether the child process exit normally 
+WEXITSTATUS:It returns the exit status of the child process.
+
+Q6
+Output
+Exit status:7
+reason:since _exit(7),the child process exit status is 7
+then WEXITSTATUS(status) get the exit status and print
+
+Q7
+false
+
+Q8
+true
+
+Mini Round 4.3 Notes
+
+1. _exit(42)
+
+_exit(42) makes the child process exit with status 42.
+
+42 is the exit status.
+
+
+2. wait(&status)
+
+wait(&status) makes the parent process wait for a child process to finish.
+
+It also stores the child's exit status in status.
+
+
+3. WIFEXITED(status)
+
+WIFEXITED(status) checks whether the child process exited normally.
+
+Simple meaning:
+Did the child exit normally?
+
+
+4. WEXITSTATUS(status)
+
+WEXITSTATUS(status) returns the exit status of the child process.
+
+Simple meaning:
+What exit code did the child return?
+
+
+5. Standard pattern
+
+int status;
+
+wait(&status);
+
+if (WIFEXITED(status)) {
+    printf("Exit status: %d\n", WEXITSTATUS(status));
+}
+
+
+6. Example
+
+Child:
+_exit(7);
+
+Parent:
+wait(&status);
+
+Then:
+WEXITSTATUS(status) returns 7.
+
+
+7. Important difference
+
+WEXITSTATUS(status) returns the exit status.
+
+It does not return the PID.
+
+
+8. Common mistakes
+
+Wrong:
+_exit(42) means child process exit status.
+
+Correct:
+_exit(42) makes the child process exit with status 42.
+
+
+Wrong:
+wait(&status) only gets the child exit status.
+
+Correct:
+wait(&status) waits for the child and stores the child's exit status.
+
+
+Wrong:
+WEXITSTATUS is the parent process.
+
+Correct:
+WEXITSTATUS(status) is a macro that returns the child's exit status.
+
+
+
+
+
+Q1
+fork()
+getpid()
+getppid()
+_exit(42)
+wait(&status)
+WIFEXITED(status)
+WEXITSTATUS(status)
+
+
+Q2
+pid_t pid = fork()
+creates a new child process and store the return value in pid
+
+Q3
+print an eerror message if fork() falis
+
+Q4
+true
+
+Q5
+true
+
+Q6
+false
+
+Mini Round 4.4 Notes
+
+1. pid_t pid = fork();
+
+This creates a new child process and stores the return value in pid.
+
+
+2. fork() return value
+
+pid < 0:
+fork failed
+
+pid == 0:
+current process is the child process
+
+pid > 0:
+current process is the parent process
+
+Important:
+In the parent process, pid is the child's PID.
+
+
+3. perror("fork")
+
+perror("fork") prints an error message if fork() fails.
+
+Example:
+
+if (pid < 0) {
+    perror("fork");
+    return 1;
+}
+
+
+4. getpid()
+
+getpid() returns the PID of the current process.
+
+
+5. getppid()
+
+getppid() returns the PID of the parent process.
+
+
+6. Child process part
+
+if (pid == 0) {
+    printf("Child PID: %d\n", getpid());
+    printf("Parent PID: %d\n", getppid());
+    _exit(42);
+}
+
+Meaning:
+The child prints its PID and parent PID.
+Then it exits with status 42.
+
+
+7. Parent process part
+
+else {
+    int status;
+    wait(&status);
+
+    if (WIFEXITED(status)) {
+        printf("Exit status: %d\n", WEXITSTATUS(status));
+    }
+}
+
+Meaning:
+The parent waits for the child.
+Then it checks whether the child exited normally.
+Then it prints the child's exit status.
+
+
+8. Important mistake
+
+Wrong:
+In the parent process, fork() returns the parent's PID.
+
+Correct:
+In the parent process, fork() returns the child's PID.
+
+
+9. Very important memory
+
+pid == 0:
+child process
+
+pid > 0:
+parent process, and pid is the child's PID
+
+wait(&status):
+used by parent
+
+_exit(42):
+used by child
+
+Mini Round 4.5 Practice
+Q1
+Output:
+A
+B
+B
+reason:
+first print A,then fork() creates child process and child and parent process run the next line
+so child and parent print B respectively
+
+A is printed before fork(),so it prints once
+After fork(),there are two processes:parent and child
+Both parent and child continued from the next line,so B prints twice
+
+Q2
+Output:
+Hello
+Hello
+reason:
+first fork() creats child process,then child and parent run in the next line together
+fork() creates a child process.
+After fork(),both parent and child continued from the next line
+So Hello prints twice
+
+Q3
+Output:
+Start           Start
+Child     or    Parent  
+Parent          Child
+reason:
+first print Start,then fork() creates child process so pid = 0 and print Child
+I'm not clear
+
+Start is printed before fork(),so it prints once
+After fork(),there are two processes.
+In the child process,pid = 0,so it prints Child 
+In the parent process,pid > 0,so it prints Parent
+The order of Child and Parent is not fixed
+
+Q4
+false
+
+Q5
+int status;
+wait(&status);
+
+Q6
+Output:
+Child
+Parent
+Reason:
+fork() creates a child process
+In the child process,pid = 0,so it prints Child and exits
+In the parent process,wait(&status) makes the parent wait for the child to finish
+After the child finishes,the parent prints Parent
+So Child prints before Parent
+
+Mini Round 4.5 Notes
+
+1. Output before fork()
+
+Any printf before fork() prints once.
+
+Example:
+printf("A\n");
+fork();
+
+A prints once.
+
+
+2. Output after fork()
+
+Any printf after fork() usually prints twice.
+
+Reason:
+After fork(), there are two processes:
+parent process
+child process
+
+Both continue from the next line after fork().
+
+
+3. Example
+
+printf("A\n");
+fork();
+printf("B\n");
+
+Output:
+A
+B
+B
+
+
+4. Parent and child branches
+
+pid_t pid = fork();
+
+if (pid == 0) {
+    printf("Child\n");
+}
+else {
+    printf("Parent\n");
+}
+
+Output:
+Child
+Parent
+
+or:
+Parent
+Child
+
+Reason:
+pid == 0 is the child process.
+pid > 0 is the parent process.
+Without wait(), the order is not fixed.
+
+
+5. Important correction
+
+Wrong thinking:
+After fork(), only the child continues.
+
+Correct:
+After fork(), both parent and child continue.
+
+
+6. wait(&status)
+
+wait(&status) makes the parent wait for the child to finish.
+
+
+7. Output with wait
+
+pid_t pid = fork();
+
+if (pid == 0) {
+    printf("Child\n");
+    _exit(0);
+}
+else {
+    int status;
+    wait(&status);
+    printf("Parent\n");
+}
+
+Output:
+Child
+Parent
+
+Reason:
+The parent waits until the child finishes.
+So Child prints before Parent.
+
+
+8. Without wait()
+
+Order is not fixed.
+
+Possible:
+Parent
+Child
+
+Also possible:
+Child
+Parent
+
+
+9. With wait()
+
+Parent waits for child.
+
+So:
+Child first
+Parent second
+
+
+10. Common mistake
+
+If you write:
+
+wait(&status);
+
+you must declare status first:
+
+int status;
+wait(&status);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

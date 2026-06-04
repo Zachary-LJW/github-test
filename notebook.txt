@@ -1,0 +1,1763 @@
+第一节
+路径与目录
+0. Linux 终端的默认规则
+
+Linux 终端里输入的命令，默认都是在“当前目录”里执行。
+
+当前目录：
+current working directory
+
+意思就是：
+你现在所在的文件夹位置。
+
+1. ls：list，列出当前文件夹里的东西
+
+对于文件夹来说，ls 就是列出当前目录里面的文件和文件夹。
+
+ls -l：
+可以理解为 long format，长格式，会显示更详细的信息。
+
+例如：
+drwxr-xr-x 2 ubuntu ubuntu 4096 May 27 Desktop
+-rw-r--r-- 1 ubuntu ubuntu 120 May 27 test.txt
+
+开头是 d 的，通常是目录/文件夹。
+开头是 - 的，通常是普通文件。
+
+2. pwd：print working directory
+
+作用：
+查看当前位置。
+
+简单理解：
+我现在在哪？
+
+
+3. cd：change directory
+
+作用：
+切换目录。
+
+cd ..
+回到上一级目录。
+
+注意：
+cd 和 .. 中间要有空格。
+cd.. 是错误写法，可以记成反面例子。
+
+.. 代表上一级目录。
+
+cd ~
+回到 home 目录。
+
+~ 表示 home directory，也就是用户主目录。
+
+
+4. mkdir：make directory
+
+作用：
+创建文件夹/目录。
+
+mkdir test
+
+意思就是：
+在当前目录创建一个叫 test 的文件夹。
+
+重点：
+mkdir 创建的位置取决于你现在在哪。
+不确定位置时，先用 pwd 看一下。
+
+
+第二节
+Linux 文件操作
+1. touch：创建空文件
+
+touch note.txt
+意思是创建一个叫 note.txt 的空文件。
+
+
+2. cat：查看文件内容
+
+cat note.txt
+意思是显示 note.txt 里面的内容。
+
+
+3. echo：输出文字
+
+echo "hello linux"
+意思是在终端显示 hello linux。
+
+
+4. >：覆盖写入文件
+
+echo "hello" > note.txt
+意思是把 hello 写进 note.txt。
+如果 note.txt 原来有内容，会被覆盖。
+
+
+5. >>：追加写入文件
+
+echo "second line" >> note.txt
+意思是在 note.txt 后面追加一行内容。
+不会覆盖原来的内容。
+
+
+6. cp：copy，复制文件
+
+cp note.txt backup.txt
+意思是复制 note.txt，生成 backup.txt。
+
+
+7. mv：move，移动或重命名
+
+mv backup.txt old_note.txt
+意思是把 backup.txt 改名成 old_note.txt。
+
+mv note.txt lab1/
+意思是把 note.txt 移动到 lab1 文件夹里。
+
+
+8. rm：remove，删除文件
+
+rm old_note.txt
+意思是删除 old_note.txt。
+
+注意：
+rm 比较危险，删除前最好先 ls 看清楚。
+
+第三节
+路径 Path
+1. path：路径
+
+路径就是文件或文件夹的位置。
+
+
+2. absolute path：绝对路径
+
+从根目录 / 开始写的完整路径。
+
+例子：
+/home/zachary/linux-practice/note.txt
+
+特点：
+一定以 / 开头。
+
+
+3. relative path：相对路径
+
+从当前目录开始找。
+
+例子：
+cd linux-practice
+
+如果当前就在 /home/zachary，那么 linux-practice 就是相对路径。
+
+
+4. . 和 ..
+
+. 表示当前目录。
+
+例子：
+./script.sh
+意思是运行当前目录下的 script.sh。
+
+.. 表示上一级目录。
+
+例子：
+cd ..
+意思是回到上一级目录。
+
+
+5. wildcards：通配符
+
+* 匹配任意多个字符。
+
+例子：
+ls *.txt
+列出所有 .txt 文件。
+
+? 匹配任意一个字符。
+
+例子：
+ls ?.txt
+匹配 a.txt、b.txt 这种只有一个字符名字的 txt 文件。
+
+[abc] 匹配 a、b、c 中的一个字符。
+
+例子：
+ls [abc].txt
+
+
+6. rmdir
+
+rmdir test
+删除空目录。
+
+如果目录里面有文件，rmdir 会失败。
+
+
+7. rm -r
+
+rm -r test
+删除目录和里面的内容。
+
+-r 可以理解为 recursive，递归。
+
+
+8. rm -rf
+
+rm -rf test
+强制删除目录和里面的内容。
+
+-r：recursive，递归
+-f：force，强制
+
+注意：
+rm -rf 很危险，不要乱用。
+
+第四节
+Linux权限 permission
+1. ls -l 可以查看权限
+
+例子：
+-rw-r--r-- 1 zachary zachary 120 May 27 test.txt
+drwxr-xr-x 2 zachary zachary 4096 May 27 lab1
+
+
+2. 第一个字符表示类型
+
+-  普通文件
+d  目录/文件夹
+
+
+3. 后面 9 个字符表示权限
+
+rw-r--r--
+
+可以分成三组：
+
+rw-   r--   r--
+owner group others
+
+owner：文件拥有者
+group：同组用户
+others：其他人
+
+
+4. r、w、x 的意思
+
+r = read，读
+w = write，写/修改
+x = execute，执行
+
+
+5. 普通文件里的权限
+
+r：可以查看文件内容
+w：可以修改文件内容
+x：可以运行这个文件
+
+
+6. 目录里的权限
+
+r：可以列出目录内容
+w：可以在目录里创建/删除文件
+x：可以进入目录
+
+
+7. chmod
+
+chmod = change mode
+
+作用：
+修改权限。
+
+例子：
+chmod +x test.sh
+
+意思：
+给 test.sh 增加执行权限。
+
+
+8. ./test.sh
+
+. 表示当前目录。
+
+./test.sh
+
+意思是：
+运行当前目录下的 test.sh。
+
+
+9. sudo
+
+sudo 可以理解为用管理员权限执行命令。
+
+例子：
+sudo apt install git
+
+注意：
+sudo 权限很高，不要乱用。
+尤其不要乱用 sudo rm -rf。
+
+第五节
+Bash脚本入门
+
+1. Bash script
+
+Bash script 就是把很多 Linux 命令写进一个 .sh 文件里，然后一次运行。
+
+简单理解：
+脚本 = 自动执行命令的文件。
+
+
+2. .sh 文件
+
+脚本文件通常用 .sh 结尾。
+
+例子：
+hello.sh
+
+
+3. shebang
+
+#!/bin/bash
+
+作用：
+告诉 Linux 这个脚本用 bash 来运行。
+
+
+4. echo
+
+echo 用来输出文字。
+
+例子：
+echo "Hello Linux"
+
+
+5. 运行脚本
+
+方法 1：
+bash hello.sh
+
+方法 2：
+chmod +x hello.sh
+./hello.sh
+
+
+6. 变量 variable
+
+变量就是用一个名字存一个值。
+
+例子：
+name="Zachary"
+echo $name
+
+注意：
+等号两边不能有空格。
+
+正确：
+name="Zachary"
+
+错误：
+name = "Zachary"
+
+
+7. 使用变量
+
+echo "Hello $name"
+
+更清楚的写法：
+echo "Hello ${name}"
+
+
+8. read
+
+read 用来读取用户输入。
+
+例子：
+read name
+
+常用写法：
+read -p "Enter your name: " name
+
+
+9. comment 注释
+
+# 后面的内容是注释，不会执行。
+
+例子：
+# This is a comment
+
+10. Bash 变量写法注意
+
+正确取变量值：
+
+$name
+${name}
+
+例子：
+name="Zachary"
+echo "Hello $name"
+echo "Hello ${name}"
+
+输出：
+Hello Zachary
+
+
+错误写法：
+
+$(name)
+
+原因：
+$(name) 在 Bash 里不是取变量，而是执行 name 这个命令。
+
+所以如果写：
+
+echo "Hello $(name)"
+
+Bash 会把 name 当成命令去找。
+如果系统里没有 name 这个命令，就会报错：
+
+name: command not found
+
+
+记忆：
+
+$name        取变量 name 的值
+${name}      取变量 name 的值，更清楚
+$(name)      执行 name 这个命令，错误示范
+
+第六节
+
+1. if 条件判断
+
+作用：
+根据条件决定执行哪段代码。
+
+基本结构：
+
+if [ 条件 ]; then
+    命令
+fi
+
+if 开头，fi 结尾。
+
+
+2. if else
+
+if [ 条件 ]; then
+    条件成立时执行
+else
+    条件不成立时执行
+fi
+
+
+3. if elif else
+
+if [ 条件1 ]; then
+    命令1
+elif [ 条件2 ]; then
+    命令2
+else
+    默认命令
+fi
+
+
+4. 判断字符串
+
+=   等于
+!=  不等于
+-z  字符串为空
+-n  字符串不为空
+
+例子：
+if [ "$choice" = "fruits" ]; then
+
+
+5. 判断数字
+
+-eq  等于
+-ne  不等于
+-gt  大于
+-lt  小于
+-ge  大于等于
+-le  小于等于
+
+例子：
+if [ "$num" -gt 0 ]; then
+
+
+6. Bash 条件判断最容易错的地方
+
+[ ] 里面要有空格。
+
+正确：
+if [ "$choice" = "fruits" ]; then
+
+错误：
+if ["$choice"="fruits"]; then
+
+
+7. 记忆
+
+if：如果
+elif：否则如果
+else：否则
+fi：结束 if
+
+8. 输出 $ 符号时要注意
+
+在 Bash 里，$ 有特殊含义，表示取变量值。
+
+所以如果只是想输出美元符号 $，要写成 \$。
+
+例子：
+echo "Meat usually costs around \$10-\$20 per kg."
+
+输出：
+Meat usually costs around $10-$20 per kg.
+
+错误写法：
+echo "Meat usually costs around $10-$20 per kg."
+
+原因：
+Bash 会把 $10 和 $20 当成变量/参数去解析，可能导致输出不对。
+
+另一种写法：
+echo 'Meat usually costs around $10-$20 per kg.'
+
+单引号里面的 $ 不会被解析。
+
+第七节
+
+1. Bash 数学计算
+
+Bash 里做整数计算用：
+
+$(( ))
+
+例子：
+a=10
+b=3
+sum=$((a + b))
+echo $sum
+
+输出：
+13
+
+
+2. 常见数学符号
+
++   加
+-   减
+*   乘
+/   除
+%   取余
+
+注意：
+Bash 默认是整数计算。
+
+例如：
+echo $((10 / 3))
+
+输出：
+3
+
+
+3. 除法要注意 0
+
+if [ "$n2" -ne 0 ]; then
+    div=$((n1 / n2))
+else
+    echo "Cannot divide by zero"
+fi
+
+-ne 表示 not equal，不等于。
+
+
+4. case
+
+case 可以理解成多选一判断。
+
+基本结构：
+
+case "$变量" in
+    选项1)
+        命令
+        ;;
+    选项2)
+        命令
+        ;;
+    *)
+        默认命令
+        ;;
+esac
+
+
+5. case 关键点
+
+case 开头
+esac 结尾
+;; 表示一个选项结束
+*) 表示其他所有情况
+
+
+6. 多个选项
+
+fruits|Fruits)
+
+意思是：
+输入 fruits 或 Fruits 都可以。
+
+
+7. 输出美元符号 $
+
+在 Bash 里 $ 有特殊含义。
+
+如果要输出美元符号，要写成：
+
+\$
+
+例子：
+echo "Price is \$10"
+
+输出：
+Price is $10
+
+
+8. exit 1
+
+exit 1 表示程序异常结束。
+
+常用于：
+用户输入错误时，直接退出脚本。
+
+第八节
+
+1. array 数组
+
+数组可以存多个值。
+
+例子：
+arr=(10 20 30 40 50)
+
+数组下标从 0 开始：
+
+arr[0] = 10
+arr[1] = 20
+arr[2] = 30
+
+
+2. 取数组元素
+
+echo ${arr[0]}
+
+意思是输出数组第 0 个元素。
+
+
+3. 输出整个数组
+
+echo ${arr[@]}
+
+意思是输出数组所有元素。
+
+
+4. 数组长度
+
+echo ${#arr[@]}
+
+意思是输出数组有多少个元素。
+
+
+5. 字符串切片 slicing
+
+格式：
+
+${str:start:length}
+
+意思是：
+从 start 位置开始，取 length 个字符。
+
+注意：
+位置从 0 开始。
+
+
+6. 从某个位置取到最后
+
+str="HelloBash"
+echo ${str:5}
+
+输出：
+Bash
+
+
+7. 取固定长度
+
+str="UnixSystem"
+echo ${str:4:6}
+
+输出：
+System
+
+
+8. 取前 4 个字符
+
+str="Scripting"
+echo ${str:0:4}
+
+输出：
+Scri
+
+
+9. 取最后 2 个字符
+
+str="Kernel"
+echo ${str: -2}
+
+输出：
+el
+
+注意：
+冒号后面有空格。
+
+
+10. 去掉第一个字符
+
+str="Bash"
+echo ${str:1}
+
+输出：
+ash
+
+
+11. 去掉最后一个字符
+
+str="Shell"
+echo ${str:0:${#str}-1}
+
+输出：
+Shel
+
+
+12. 用变量控制切片
+
+str="DataAnalytics"
+start=4
+len=9
+
+echo ${str:$start:$len}
+
+输出：
+Analytics
+
+第九节
+
+1. loop 循环
+
+循环就是重复执行一段代码。
+
+
+2. for loop
+
+适合次数明确的循环。
+
+格式：
+
+for i in {1..5}
+do
+    echo $i
+done
+
+
+3. C 风格 for loop
+
+for ((i=1; i<=5; i++))
+do
+    echo $i
+done
+
+
+4. while loop
+
+只要条件成立，就一直循环。
+
+i=1
+while [ $i -le 5 ]
+do
+    echo $i
+    i=$((i + 1))
+done
+
+
+5. while true
+
+while true
+do
+    命令
+done
+
+意思是无限循环。
+
+
+6. break
+
+break 用来直接结束循环。
+
+
+7. continue
+
+continue 用来跳过本次循环，继续下一次。
+
+
+8. 数组循环
+
+arr=(10 20 30)
+
+for num in ${arr[@]}
+do
+    echo $num
+done
+
+
+9. nested loop
+
+嵌套循环就是循环里面还有循环。
+
+
+10. echo -n
+
+echo -n 表示输出后不换行。
+
+echo 表示换行。
+
+
+11. 星号 pattern
+
+for ((i=1; i<=5; i++))
+do
+    for ((j=1; j<=i; j++))
+    do
+        echo -n "*"
+    done
+    echo
+done
+
+
+
+
+
+
+
+第十节
+重定向Redirection 和 管道pipe
+
+1. stdin / stdout / stderr
+
+stdin  = 标准输入
+stdout = 标准输出
+stderr = 标准错误
+
+简单理解：
+输入、正常输出、错误输出。
+
+
+2. >
+
+> 表示覆盖写入文件。
+
+例子：
+echo "hello" > a.txt
+
+意思：
+把 hello 写进 a.txt。
+如果 a.txt 原来有内容，会被覆盖。
+
+
+3. >>
+
+>> 表示追加写入文件。
+
+例子：
+echo "second" >> a.txt
+
+意思：
+把 second 添加到 a.txt 后面，不覆盖原内容。
+
+
+4. <
+
+< 表示从文件读取输入。
+
+例子：
+wc -l < users.txt
+
+意思：
+把 users.txt 作为输入，交给 wc -l 统计行数。
+
+
+5. |
+
+| 叫 pipe，管道。
+
+作用：
+把前一个命令的输出，交给后一个命令当输入。
+
+例子：
+cat users.txt | grep "cst"
+
+
+6. grep
+
+grep 用来搜索文本。
+
+例子：
+grep "cst" users.txt
+
+意思：
+在 users.txt 里面找包含 cst 的行。
+
+
+7. grep -i
+
+-i = ignore case，忽略大小写。
+
+例子：
+grep -i "cst" users.txt
+
+可以匹配：
+CST206
+cst206
+
+
+8. head
+
+head 显示文件开头内容。
+
+例子：
+head -10 file.txt
+
+显示前 10 行。
+
+
+9. tail
+
+tail 显示文件末尾内容。
+
+例子：
+tail -10 file.txt
+
+显示最后 10 行。
+
+
+10. /dev/null
+
+/dev/null 可以理解成黑洞文件。
+
+输出到 /dev/null 的内容会被丢掉。
+
+例子：
+command > /dev/null
+
+
+11. &&
+
+&& 表示前面的命令成功，才执行后面的命令。
+
+例子：
+uname -r && date
+
+意思：
+先显示 kernel version，成功后再显示日期时间。
+
+
+
+第11节
+grep 和 正则表达式
+
+1. grep
+
+grep 用来搜索文本。
+
+例子：
+grep "CST" test.txt
+
+意思：
+在 test.txt 里面找包含 CST 的行。
+
+
+2. grep -i
+
+-i = ignore case，忽略大小写。
+
+例子：
+grep -i "cst" test.txt
+
+
+3. grep -E
+
+-E = Extended Regex，使用扩展正则表达式。
+
+例子：
+grep -E "[0-9]" test.txt
+
+
+4. [0-9]
+
+匹配任意一个数字。
+
+例子：
+grep -E "[0-9]" test.txt
+
+
+5. [[:digit:]]
+
+也表示匹配数字。
+
+例子：
+grep -E "[[:digit:]]" test.txt
+
+
+6. [[:alpha:]]
+
+匹配字母。
+
+例子：
+grep -E "[[:alpha:]]" test.txt
+
+
+7. ^
+
+^ 表示一行的开头。
+
+例子：
+grep -E "^[0-9]" test.txt
+
+意思：
+找以数字开头的行。
+
+
+8. .
+
+. 在 regex 里表示任意一个字符。
+
+
+9. \.
+
+\. 表示真正的点号。
+
+例子：
+grep "\." test.txt
+
+
+10. \-
+
+\- 表示真正的横线。
+
+例子：
+grep "\-" test.txt
+
+
+11. |
+
+| 表示或者。
+
+例子：
+grep -E "call|banana" test.txt
+
+意思：
+找 call 或 banana。
+
+
+12. grep -o
+
+-o 表示只输出匹配到的部分。
+
+例子：
+grep -E -o "call|banana" test.txt
+
+
+13. *
+
+* 表示重复 0 次或多次。
+
+
+14. +
+
++ 表示重复 1 次或多次。
+
+例子：
+grep -E "[0-9]+" test.txt 
+
+意思：
+匹配连续数字。
+
+
+15. {n}
+
+{n} 表示刚好重复 n 次。
+
+例子：
+grep -E "[0-9]{3}" test.txt
+
+意思：
+匹配连续 3 个数字。
+
+
+16. grep -P 和 \d
+
+-P 表示 Perl regex。
+\d 表示数字。
+
+例子：
+echo "$teststr" | grep -Po '\d'
+
+意思：
+只输出句子里的数字。
+
+
+第12节
+regex进阶
+regex =  regular expression,中文叫正则表达式
+regex = 用一串特殊符号，描述你要找的文本规律
+
+1. grep -Eo
+
+-E：使用扩展正则
+-o：只输出匹配到的部分
+
+例子：
+grep -Eo "call|banana" test.txt
+
+
+2. 匹配 +603 电话号码
+
+regex：
+\+603[0-9]{8}
+
+解释：
+\+      真正的 +
+603     匹配 603
+[0-9]   一个数字
+{8}     重复 8 次
+
+命令：
+grep -Eo "\+603[0-9]{8}" local_call.txt
+
+
+3. 统计匹配数量
+
+grep -Eo "\+603[0-9]{8}" local_call.txt | wc -l
+
+wc -l：
+统计行数。
+
+
+4. call 或 banana
+
+grep -Eoi "call|banana" test.txt
+
+-E：扩展正则
+-o：只输出匹配部分
+-i：忽略大小写
+|：或者
+
+
+5. command substitution
+
+$(command)
+
+意思：
+执行 command，并把输出结果拿回来。
+
+例子：
+call_count=$(grep -Eoi "call" test.txt | wc -l)
+
+
+6. 匹配横线 -
+
+grep "\-" test.txt
+
+
+7. 匹配真正的点号 .
+
+grep "\." test.txt
+
+注意：
+.  表示任意一个字符
+\. 表示真正的点号
+
+
+8. 验证纯数字
+
+regex：
+^[0-9]+$
+
+解释：
+^      开头
+[0-9]  数字
++      一个或多个
+$      结尾
+
+意思：
+从开头到结尾全部都是数字。
+
+
+9. Bash 判断输入是否为数字
+
+if [[ "$input" =~ ^[0-9]+$ ]]; then
+    echo "Valid number"
+else
+    echo "Invalid input"
+fi
+
+
+10. 匹配 192. 开头的 IP
+
+regex：
+192\.[0-9]+\.[0-9]+\.[0-9]+
+
+命令：
+grep -Eo "192\.[0-9]+\.[0-9]+\.[0-9]+" access_log.txt
+
+只要前 5 个：
+grep -Eo "192\.[0-9]+\.[0-9]+\.[0-9]+" access_log.txt | head -5
+
+第13节
+Advanced Linux commands
+
+1. uname -r
+
+显示 Linux kernel version。
+
+
+2. date
+
+显示当前日期和时间。
+
+
+3. uname -r && date
+
+先执行 uname -r。
+如果成功，再执行 date。
+
+&& 表示前一个命令成功，才执行后一个命令。
+
+
+4. dmesg
+
+显示 kernel message / 内核日志。
+
+常见写法：
+sudo dmesg
+
+
+5. head / tail
+
+head -10 file.txt
+显示前 10 行。
+
+tail -10 file.txt
+显示最后 10 行。
+
+
+6. sudo dmesg | tail -10 > kernel_log.txt
+
+意思：
+显示内核日志，取最后 10 行，并保存到 kernel_log.txt。
+
+
+7. /dev/null
+
+/dev/null 可以理解为黑洞文件。
+
+输出到 /dev/null 的内容会被丢掉。
+
+
+8. cat /proc/cpuinfo
+
+查看 CPU 信息。
+
+
+9. cat /proc/meminfo
+
+查看内存信息。
+
+
+10. /proc
+
+/proc 是 virtual file system。
+里面很多文件是 Linux 运行时生成的系统信息。
+
+
+11. whoami
+
+显示当前用户名。
+
+
+12. grep $(whoami) /etc/passwd
+
+先执行 whoami 得到当前用户名。
+再去 /etc/passwd 里面找这个用户的信息。
+
+
+13. wc -l
+
+统计行数。
+
+wc -l users.txt
+输出行数和文件名。
+
+wc -l < users.txt
+只输出行数。
+
+
+14. while read -r line
+
+一行一行读取内容。
+
+例子：
+
+while read -r line
+do
+    echo "Processing: $line"
+done < data.csv
+
+
+15. 2>/dev/null
+
+2 表示错误输出 stderr。
+
+2>/dev/null
+意思是把错误信息丢掉，不显示。
+
+
+16. < <(...)
+
+把一个命令的输出，当成 while 的输入。
+
+例子：
+
+while read -r file
+do
+    echo "Processing: $file"
+done < <(ls /home/*.txt 2>/dev/null)
+
+第14节
+process进程
+
+1. process
+
+process = 正在运行的程序。
+
+program 是静态文件。
+process 是运行中的程序。
+
+
+2. PID
+
+PID = Process ID
+
+意思：
+进程编号，可以理解为进程身份证号。
+
+
+3. PPID
+
+PPID = Parent Process ID
+
+意思：
+父进程的 PID。
+
+
+4. parent process / child process
+
+parent process：父进程
+child process：子进程
+
+一个进程可以创建另一个进程。
+
+
+5. ps
+
+ps 用来查看进程。
+
+ps
+查看当前终端相关进程。
+
+ps -aux
+查看系统中更多进程。
+
+
+6. getpid()
+
+获取当前进程自己的 PID。
+
+
+7. getppid()
+
+获取当前进程的父进程 PID。
+
+
+8. fork()
+
+fork() 用来创建子进程。
+
+执行 fork 后，会有两个进程继续运行：
+parent process
+child process
+
+
+9. fork 返回值
+
+pid < 0：fork 失败
+pid == 0：当前是 child process
+pid > 0：当前是 parent process，pid 是 child 的 PID
+
+
+10. fork 判断模板
+
+pid_t pid = fork();
+
+if (pid < 0) {
+    // error
+}
+else if (pid == 0) {
+    // child
+}
+else {
+    // parent
+}
+
+
+11. wait()
+
+wait(&status)
+
+作用：
+父进程等待子进程结束。
+
+
+12. _exit(42)
+
+子进程退出，并返回 exit code 42。
+
+
+13. WIFEXITED(status)
+
+判断子进程是否正常退出。
+
+
+14. WEXITSTATUS(status)
+
+获取子进程的退出状态码。
+
+gcc pid.c -o pid
+
+gcc：C 语言编译器
+pid.c：C 源代码文件
+-o：指定输出文件名
+pid：生成的可执行程序名字
+
+意思：
+把 pid.c 编译成一个叫 pid 的可执行程序。
+
+
+./pid
+
+. 表示当前目录。
+./pid 表示运行当前目录下的 pid 程序。
+
+第15节
+Signals信号
+
+1. Signal
+
+Signal 可以理解成操作系统发给进程的通知或命令。
+
+
+2. SIGINT
+
+SIGINT 通常由 Ctrl+C 触发。
+
+作用：
+中断程序。
+
+
+3. SIGQUIT
+
+SIGQUIT 通常由 Ctrl+\ 触发。
+
+作用：
+退出程序。
+
+
+4. signal()
+
+signal(SIGINT, handler);
+
+意思：
+当程序收到 SIGINT 时，执行 handler 函数。
+
+
+5. signal handler
+
+handler 是信号处理函数。
+
+例子：
+
+void handler(int sig) {
+    const char msg[] = "Caught SIGINT\n";
+    write(STDOUT_FILENO, msg, sizeof(msg) - 1);
+    _exit(0);
+}
+
+
+6. while (1)
+
+while (1) 表示无限循环。
+
+
+7. sleep(1)
+
+sleep(1) 表示暂停 1 秒。
+
+
+8. write()
+
+在 signal handler 里面，write 比 printf 更安全。
+
+
+9. _exit(0)
+
+_exit(0) 表示立刻退出程序。
+
+
+10. 编译运行
+
+gcc q1.c -o q1
+./q1
+
+Ctrl+C 触发 SIGINT。
+Ctrl+\ 触发 SIGQUIT。
+
+
+第16节
+多个子进程和僵尸进程1. Signal
+
+Signal 可以理解成操作系统发给进程的通知或命令。
+
+
+2. SIGINT
+
+SIGINT 通常由 Ctrl+C 触发。
+
+作用：
+中断程序。
+
+
+3. SIGQUIT
+
+SIGQUIT 通常由 Ctrl+\ 触发。
+
+作用：
+退出程序。
+
+
+4. signal()
+
+signal(SIGINT, handler);
+
+意思：
+当程序收到 SIGINT 时，执行 handler 函数。
+
+
+5. signal handler
+
+handler 是信号处理函数。
+
+例子：
+
+void handler(int sig) {
+    const char msg[] = "Caught SIGINT\n";
+    write(STDOUT_FILENO, msg, sizeof(msg) - 1);
+    _exit(0);
+}
+
+
+6. while (1)
+
+while (1) 表示无限循环。
+
+
+7. sleep(1)
+
+sleep(1) 表示暂停 1 秒。
+
+
+8. write()
+
+在 signal handler 里面，write 比 printf 更安全。
+
+
+9. _exit(0)
+
+_exit(0) 表示立刻退出程序。
+
+
+10. 编译运行
+
+gcc q1.c -o q1
+./q1
+
+Ctrl+C 触发 SIGINT。
+Ctrl+\ 触发 SIGQUIT。
+
+
+第17节
+process states 和 PCB
+1. process state
+
+process state = 进程当前处于什么阶段。
+
+
+2. 五个常见状态
+
+New：
+刚刚被创建。
+
+Ready：
+准备好运行，正在等 CPU。
+
+Running：
+正在 CPU 上执行。
+
+Blocked / Waiting：
+暂时不能运行，因为在等某件事，比如 I/O。
+
+Exit：
+进程结束。
+
+
+3. 常见状态转换
+
+New → Ready：
+进程创建完成，进入等待队列。
+
+Ready → Running：
+CPU 选中它，开始执行。
+
+Running → Ready：
+时间片用完，回去排队。
+
+Running → Blocked：
+运行时需要等待 I/O 或事件。
+
+Blocked → Ready：
+等待的事情完成，重新准备运行。
+
+Running → Exit：
+程序执行结束。
+
+
+4. PCB
+
+PCB = Process Control Block
+
+意思：
+进程控制块。
+
+简单理解：
+PCB 是操作系统给每个进程准备的档案卡。
+
+
+5. PCB 里面常见信息
+
+PID
+process state
+priority
+program counter
+registers / context data
+memory information
+I/O information
+
+
+6. PCB 的作用
+
+保存进程信息。
+
+让进程被暂停后，之后还能恢复继续运行。
+
+
+7. Context Switch
+
+Context Switch = 上下文切换。
+
+意思：
+CPU 从一个进程切换到另一个进程。
+
+过程：
+保存旧进程状态到 PCB
+读取新进程 PCB
+运行新进程
+
+
+最终压缩笔记
+CST206 核心：
+
+1. Linux command
+pwd, ls, cd, mkdir, touch, cat, cp, mv, rm, chmod
+
+2. Redirection
+>  覆盖
+>> 追加
+<  输入
+|  管道
+
+3. Bash
+变量：name="Tom"
+取值：$name
+输入：read -p
+判断：if [ condition ]; then ... fi
+循环：for / while
+选择：case ... esac
+
+4. Regex
+grep = 搜索
+regex = 搜索规则
+
+常见：
+[0-9] 数字
++ 一个或多个
+{n} 重复 n 次
+^ 开头
+$ 结尾
+\. 真正的点号
+| 或者
+
+5. Process
+process = 正在运行的程序
+PID = 进程编号
+PPID = 父进程编号
+
+6. fork
+pid < 0 error
+pid == 0 child
+pid > 0 parent
+
+7. wait / waitpid
+wait 等 child
+waitpid(-1, &status, 0) 等任意 child
+
+8. Signal
+SIGINT = Ctrl+C
+SIGQUIT = Ctrl+\
+signal(SIGINT, handler)
+
+9. Zombie
+child 已经结束，但 parent 没有 wait
+
+10. PCB
+Process Control Block
+保存进程信息
+

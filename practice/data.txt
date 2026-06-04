@@ -1,0 +1,12 @@
+Hello CST206
+Linux is useful
+Please call 1.919.554.3800
+They bought 731 bananas
+My phone number is +60312345678
+Another number is +60387654321
+The server IP is 192.168.0.10
+Backup IP: 192.168.1.25
+Invalid IP: 10.0.0.1
+abc123xyz
+999
+Error-code: A-404
